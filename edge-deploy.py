@@ -85,7 +85,7 @@ embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 db = FAISS.from_documents(documents, embeddings)
 
 
-edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key="input")
+edge_spec = st.text_input ("Please describe the site-specific changes for your edge node. I may take a minute to generate the configuration.", key="input")
 #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
 IaC = db.similarity_search_with_score(edge_spec)
 matched_IaC = IaC[0][0].page_content
