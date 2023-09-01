@@ -74,7 +74,7 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 #response = llm("Tell me something unique about the Indian state of Kerala")
 #print(response)
 
-st.title("Containerized Edge Deployment Automation Engine")
+st.title("Edge Deployment Automation Engine")
 st.subheader("Auto-generate Edge Infrastructure-as-Code")
 
 loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
@@ -102,7 +102,7 @@ while (0 < 1):
         print (cb)
 
     print (generated_yaml)
-    st.write (generated_yaml)
+    st.code(generated_yaml, language="yaml", line_numbers=False)
 
     matched_IaC = generated_yaml
     edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
