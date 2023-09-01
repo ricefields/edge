@@ -84,7 +84,7 @@ embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 
 db = FAISS.from_documents(documents, embeddings)
 
-IaC = db.similarity_search_with_score(edge_spec)
+IaC = db.similarity_search_with_score("ocplabnk")
 matched_IaC = IaC[0][0].page_content
 print (matched_IaC)
 print ("Similarity Score =", IaC[0][1])
