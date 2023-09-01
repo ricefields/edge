@@ -76,6 +76,9 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 #response = llm("Tell me something unique about the Indian state of Kerala")
 #print(response)
 
+st.title("Containerized Edge Deployment Automation Engine")
+st.subheader("Auto-generate Edge Infrastructure-as-Code")
+
 loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
 documents = loader.load()
 
@@ -84,7 +87,7 @@ embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 db = FAISS.from_documents(documents, embeddings)
 
 
-edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.")
+edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key="input")
 #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
 IaC = db.similarity_search_with_score(edge_spec)
 matched_IaC = IaC[0][0].page_content
@@ -103,7 +106,7 @@ while (i < 2):
     print (generated_yaml)
 
     matched_IaC = generated_yaml
-    edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.")
+    edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key="input")
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
 print ("hello world")
