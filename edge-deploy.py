@@ -44,8 +44,6 @@ index_name = "./index"
 openshift_base_yaml_path = "./openshift-base.yaml"
 
 
-os.environ["OPENAI_API_KEY"] = "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"
-
 # Prompt template
 Prompt_template = PromptTemplate(
     input_variables = ["source_IaC", "edge_config_changes"],
