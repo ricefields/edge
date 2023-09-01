@@ -59,6 +59,9 @@ Prompt_template = PromptTemplate(
     '"""
 )
 
+def reset_project():
+    matched_IaC = orig_IaC
+    
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
 #    Assume that MAC address is another name for bootMACAddress. 
@@ -86,6 +89,7 @@ db = FAISS.from_documents(documents, embeddings)
 
 IaC = db.similarity_search_with_score("ocplabnk")
 matched_IaC = IaC[0][0].page_content
+orig_IaC = matched_IaC
 print (matched_IaC)
 print ("Similarity Score =", IaC[0][1])
 
@@ -107,6 +111,8 @@ if edge_spec:
     #edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
     #st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
+
+st.sidebar.button("Reset Project", on_click = reset_project, type='primary')
 
 print ("hello world")
 
