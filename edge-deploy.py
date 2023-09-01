@@ -97,7 +97,7 @@ st.button("Reset Project", on_click = reset_project)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node. 
 You can specify changes step by step. 
-Each specified change will apply to the YAML code generated in the previous step. 
+Each specified change will apply on the YAML code generated in the previous step. 
 To start a new project, click the 'Reset Project' button.""", key="input")
 
 if edge_spec:
