@@ -95,16 +95,17 @@ print ("Similarity Score =", IaC[0][1])
 chain = LLMChain(llm=llm, prompt=Prompt_template)
 
 i=0
-while (i < 2):
+while (0 < 1):
     i+=1 
     with get_openai_callback() as cb:
         generated_yaml = chain.run(source_IaC=matched_IaC, edge_config_changes=edge_spec)
         print (cb)
 
     print (generated_yaml)
+    st.write (generated_yaml)
 
     matched_IaC = generated_yaml
-    edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key="input")
+    edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
 print ("hello world")
