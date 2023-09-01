@@ -1,0 +1,786 @@
+apiVersion: v1
+baseDomain: man.hr
+metadata:
+  name: ocplabnk
+networking:
+  machineNetwork:
+  - cidr: 172.16.116.0/26
+  networkType: OVNKubernetes
+compute:
+- name: worker
+  replicas: 11
+controlPlane:
+  name: master
+  replicas: 3
+  platform:
+    baremetal: {}
+platform:
+  baremetal:
+    bootstrapOSImage: http://172.16.116.26/rhcos-410.84.202210040010-0-qemu.x86_64.qcow2.gz?sha256=564956536fc148c890fd385b220d8ec8ac060f15203e7ef6e2e20805a1ef936e
+    apiVIP: 172.16.116.30
+    ingressVIP: 172.16.116.31
+    provisioningNetwork: Disabled
+    hosts:
+      - name: master01
+        role: master
+        bmc:
+          address: idrac-virtualmedia://172.16.115.5/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:8C:C5:04
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: master02
+        role: master
+        bmc:
+          address: idrac-virtualmedia://172.16.115.6/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:6B:95:54
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: master03
+        role: master
+        bmc:
+          address: idrac-virtualmedia://172.16.115.38/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:8C:C5:14
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk01
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.9/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMode: UEFI
+        bootMACAddress: 10:70:FD:8C:F7:94
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.132
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.196
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk02
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.40/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:6B:95:BC
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.133
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.197
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk03
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.10/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:6B:94:64
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.134
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.198
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk04
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.41/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:6B:94:C4
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.135
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.199
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk05
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.11/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:8C:C5:24
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.136
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.200
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk06
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.42/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:6B:96:B4
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.137
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.201
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk07
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.12/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:4A:F5:C8
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.138
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.202
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk08
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.43/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:6B:94:7C
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.139
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.203
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: stwrk09
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.13/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:4A:E9:A8
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.140
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.204
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: htwrk01
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.44/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:8C:D1:CC
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.141
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.205
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+      - name: htwrk02
+        role: worker
+        bmc:
+          address: idrac-virtualmedia://172.16.115.45/redfish/v1/Systems/System.Embedded.1
+          username: 'root'
+          password: 'Airtel@2020'
+          disableCertificateVerification: True
+        bootMACAddress: 10:70:FD:8D:05:D4
+        bootMode: UEFI
+        rootDeviceHints:
+         deviceName: "/dev/sda"
+        networkConfig:
+          interfaces:
+          - name: bond0
+            description: Bond with ports eno1 and eno2
+            type: bond
+            state: up
+            ipv4:
+              dhcp: true
+              enabled: true
+              auto-dns: false
+            link-aggregation:
+              mode: 802.3ad
+              options:
+                miimon: 100
+                lacp_rate: 'fast'
+                updelay: 1000
+              port:
+              - eno1
+              - eno2
+            mtu: 9000
+          - name: bond0.3802
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.142
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3802
+          - name: bond0.3803
+            type: vlan
+            state: up
+            ipv4:
+              address:
+              - ip: 172.16.116.206
+                prefix-length: 26
+              enabled: true
+              dhcp: false
+            vlan:
+              base-iface: bond0
+              id: 3803
+          dns-resolver:
+            config:
+              server:
+              - 172.16.116.26
+pullSecret: '{"auths":{"reposrv.ocplabmgmt.man.hr:8443":{"auth":"aW5pdDpyZWdpc3RyeUAxMjM=","email":"s2.praveen@airtel.com"}}}'
+sshKey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJUVkHyvsIyGwpi2i514YbSWAho2M/2oTpp4+DZ+J7Oc kni@provisioner.ocplabnk.man.hr'
+imageContentSources:
+- mirrors:
+  - reposrv.ocplabmgmt.man.hr:8443/ocp4/openshift4
+  source: quay.io/openshift-release-dev/ocp-release
+- mirrors:
+  - reposrv.ocplabmgmt.man.hr:8443/ocp4/openshift4
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
