@@ -89,7 +89,7 @@ matched_IaC = IaC[0][0].page_content
 print (matched_IaC)
 print ("Similarity Score =", IaC[0][1])
 
-edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key="input")
+edge_spec = st.text_input ("Please describe the site-specific changes for your edge node. You can specify changes step by step. Each specified change will apply to the YAML code generated in the previous step.", key="input")
 if edge_spec:
     st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
