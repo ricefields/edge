@@ -86,18 +86,16 @@ db = FAISS.from_documents(documents, embeddings)
 
 
 edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key="input")
-st.write ("Please wait. This might take a minute.. :sunglasses")
-#edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
-IaC = db.similarity_search_with_score(edge_spec)
-matched_IaC = IaC[0][0].page_content
-print (matched_IaC)
-print ("Similarity Score =", IaC[0][1])
+if edge_spec:
+    st.write ("Please wait. This might take a minute.. :sunglasses:")
+    #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
+    IaC = db.similarity_search_with_score(edge_spec)
+    matched_IaC = IaC[0][0].page_content
+    print (matched_IaC)
+    print ("Similarity Score =", IaC[0][1])
 
-chain = LLMChain(llm=llm, prompt=Prompt_template)
+    chain = LLMChain(llm=llm, prompt=Prompt_template)
 
-i=0
-while (0 < 1):
-    i+=1 
     with get_openai_callback() as cb:
         generated_yaml = chain.run(source_IaC=matched_IaC, edge_config_changes=edge_spec)
         print (cb)
@@ -106,8 +104,8 @@ while (0 < 1):
     st.code(generated_yaml, language="yaml", line_numbers=False)
 
     matched_IaC = generated_yaml
-    edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
-    st.write ("Please wait. This might take a minute.. :sunglasses")
+    #edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
+    #st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
 print ("hello world")
