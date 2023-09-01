@@ -61,7 +61,7 @@ Prompt_template = PromptTemplate(
 
 def reset_project():
     matched_IaC = orig_IaC
-    
+
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
 #    Assume that MAC address is another name for bootMACAddress. 
@@ -93,7 +93,13 @@ orig_IaC = matched_IaC
 print (matched_IaC)
 print ("Similarity Score =", IaC[0][1])
 
-edge_spec = st.text_input ("Please describe the site-specific changes for your edge node. You can specify changes step by step. Each specified change will apply to the YAML code generated in the previous step.", key="input")
+st.sidebar.button("Reset Project", on_click = reset_project, type='primary')
+
+edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node. 
+You can specify changes step by step. 
+Each specified change will apply to the YAML code generated in the previous step. 
+To start a new project, click the 'Reset Project' button""", key="input")
+
 if edge_spec:
     st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
@@ -112,7 +118,6 @@ if edge_spec:
     #st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
-st.sidebar.button("Reset Project", on_click = reset_project, type='primary')
 
 print ("hello world")
 
