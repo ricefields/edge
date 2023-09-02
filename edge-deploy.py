@@ -115,13 +115,13 @@ if st.session_state['coding'] == 0:
     print (st.session_state['orig_IaC'])
     print ("Similarity Score =", IaC[0][1])
 
-st.sidebar.button(":violet[Start Again For a New Edge Node]", on_click = reset_engine)
+st.button(":violet[Start New Edge Conversation]", on_click = reset_engine)
 #st.button("Usage Examples", on_click = usage_examples)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base edge configuration listed below. You can specify changes incrementally. 
 Each specified change will apply on the YAML code generated in the previous step and generate a new YAML. 
-To start afresh from the base configuration, click on the :violet[*Reset Engine*] button.
+To start afresh from the base configuration, click on :violet[*Start New Edge Conversation*].
 :violet[**Usage Examples**]: :orange[Change the password of the second master node to 'violin'.]
 :blue[Reduce the number of worker nodes to 2.]
 :green[Change MAC address of the first worker node to 01:02:03:04:05:06 and 
