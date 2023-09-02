@@ -116,6 +116,7 @@ if st.session_state['coding'] == 0:
     orig_IaC = st.session_state['matched_IaC']
     print (orig_IaC)
     print ("Similarity Score =", IaC[0][1])
+    st.write ("restarting")
 
 st.button("Reset Engine", on_click = reset_engine)
 
