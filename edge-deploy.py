@@ -66,21 +66,18 @@ Prompt_template = PromptTemplate(
 )
 
 def reset_engine():
-    #loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
-    #documents = loader.load()
-
-    #embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-
-    #db = FAISS.from_documents(documents, embeddings)
-
-    #IaC = db.similarity_search_with_score("ocplabnk")
-    #st.session_state['matched_IaC'] = IaC[0][0].page_content
-   
+    
     st.session_state['coding'] = 0
     st.session_state["input"] = ""
-    
-    #st.code(st.session_state['matched_IaC'], language="yaml", line_numbers=False)
 
+def usage_examples():
+    
+    st.session_state['coding'] = 0
+    st.session_state["input"] = ""
+    st.write ("""Change the password of the second master node to kyndryl\n.
+    Reduce the number of worker nodes to 2\n.
+    Change the MAC address of the first worker node to 01:02:03:04:05:06 and its IP address to 172.1.2.3.\n
+    """)
 
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
@@ -119,6 +116,7 @@ if st.session_state['coding'] == 0:
     print ("Similarity Score =", IaC[0][1])
 
 st.button("Reset Engine", on_click = reset_engine)
+st.button("Usage Examples", on_click = usage_examples)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base edge configuration listed below. You can conversationally specify changes step by step. 
