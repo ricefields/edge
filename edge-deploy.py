@@ -121,7 +121,7 @@ st.button("Reset Engine", on_click = reset_engine)
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base edge configuration listed below. You can specify changes step by step. 
 Each specified change will apply on the YAML code generated in the previous step and generate a new YAML. 
-To start afresh from the base configuration, click on 'Reset Engine'.
+To start afresh from the base configuration, push the 'Reset Engine' button.
 :blue[Usage Examples]: :orange[Change the password of the second master node to 'violin'.]
 :violet[Reduce the number of worker nodes to 2.]
 :green[Change the MAC address of the first worker node to 01:02:03:04:05:06 and its IP address to 172.1.2.3.]""", 
