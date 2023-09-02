@@ -129,23 +129,23 @@ IP address of its bond0.3803 interface to 172.1.2.3.]""",
 key="input")
 
 if edge_spec:
-    st.write ("Please wait. This might take a minute.. :sunglasses:")
-    #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
-    st.session_state["coding"] = 1
+    if edge_spec != "":
+        st.write ("Please wait. This might take a minute.. :sunglasses:")
+        #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
+        st.session_state["coding"] = 1
 
-    chain = LLMChain(llm=llm, prompt=Prompt_template)
+        chain = LLMChain(llm=llm, prompt=Prompt_template)
 
-    with get_openai_callback() as cb:
-        generated_yaml = chain.run(source_IaC=st.session_state['matched_IaC'], edge_config_changes=edge_spec)
-        print (cb)
+        with get_openai_callback() as cb:
+            generated_yaml = chain.run(source_IaC=st.session_state['matched_IaC'], edge_config_changes=edge_spec)
+            print (cb)
 
-    print (generated_yaml)
-    st.code(generated_yaml, language="yaml", line_numbers=False)
+        print (generated_yaml)
+        st.code(generated_yaml, language="yaml", line_numbers=False)
 
-    st.session_state['matched_IaC'] = generated_yaml
-    #edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
-    #st.write ("Please wait. This might take a minute.. :sunglasses:")
-    #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
+        st.session_state['matched_IaC'] = generated_yaml
+        #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
+
 else:
     st.code(orig_IaC, language="yaml", line_numbers=False)
 
