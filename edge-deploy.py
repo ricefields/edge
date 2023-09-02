@@ -115,7 +115,7 @@ if st.session_state['coding'] == 0:
     print (st.session_state['orig_IaC'])
     print ("Similarity Score =", IaC[0][1])
 
-st.button(":violet[Reset Engine]", on_click = reset_engine)
+st.sidebar.button(":violet[Start Again For a New Edge Node]", on_click = reset_engine)
 #st.button("Usage Examples", on_click = usage_examples)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
