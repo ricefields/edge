@@ -79,7 +79,7 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 #print(response)
 
 st.title("Edge Deployment Engine")
-st.subheader("Auto-generate Edge Infrastructure-as-Code")
+st.subheader("Auto-generate Infrastructure-as-Code for the Containerized Edge")
 
 if 'coding' not in st.session_state:
     st.session_state['coding'] = 0
@@ -104,7 +104,7 @@ st.button("Reset Project", on_click = reset_project)
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base edge configuration listed below. You can conversationally specify changes step by step. 
 Each specified change will apply on the YAML code generated in the previous step (see below). 
-To start a new project, click the 'Reset Project' button.""", key="input")
+To start afresh from the base configuration, click the 'Reset Project' button.""", key="input")
 
 if edge_spec:
     st.write ("Please wait. This might take a minute.. :sunglasses:")
