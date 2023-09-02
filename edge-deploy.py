@@ -62,7 +62,7 @@ Prompt_template = PromptTemplate(
 )
 
 def reset_engine():
-    matched_IaC = orig_IaC
+    st.session_state['matched_IaC'] = orig_IaC
     st.session_state['coding'] = 0
     st.write ("hello world")
 
