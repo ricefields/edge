@@ -55,7 +55,9 @@ Prompt_template = PromptTemplate(
 
     Use the following as the specified changes to be done to the above input YAML snippet: 
     {edge_config_changes}.
+    
     Generate the output YAML only; do not add any additional text before or after the generated YAML.
+    Highlight produced changes in red font. Do not use red font to display any other text.
     '"""
 )
 
