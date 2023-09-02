@@ -77,6 +77,7 @@ def reset_engine():
     #st.session_state['matched_IaC'] = IaC[0][0].page_content
    
     st.session_state['coding'] = 0
+    st.session_state["input"] = ""
     
     #st.code(st.session_state['matched_IaC'], language="yaml", line_numbers=False)
 
@@ -116,7 +117,6 @@ if st.session_state['coding'] == 0:
     orig_IaC = st.session_state['matched_IaC']
     print (orig_IaC)
     print ("Similarity Score =", IaC[0][1])
-    st.write ("restarting")
 
 st.button("Reset Engine", on_click = reset_engine)
 
