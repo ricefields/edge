@@ -57,6 +57,8 @@ Prompt_template = PromptTemplate(
     {edge_config_changes}.
 
     Generate the output YAML only; do not add any additional text before or after the generated YAML.
+    If the number of worker nodes or the number of master nodes reduces, 
+    remove the YAML sections associated with the unused nodes.
     
     '"""
 )
