@@ -43,7 +43,6 @@ import streamlit as st
 index_name = "./index"
 openshift_base_yaml_path = "./openshift-base.yaml"
 
-
 # Prompt template
 Prompt_template = PromptTemplate(
     input_variables = ["source_IaC", "edge_config_changes"],
@@ -134,6 +133,5 @@ if edge_spec:
 else:
     st.code(orig_IaC, language="yaml", line_numbers=False)
 
-print ("hello world")
 
 
