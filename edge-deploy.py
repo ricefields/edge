@@ -55,13 +55,13 @@ Prompt_template = PromptTemplate(
 
     Use the following as the specified changes to be done to the above input YAML snippet: 
     {edge_config_changes}.
-    
+
     Generate the output YAML only; do not add any additional text before or after the generated YAML.
     Highlight produced changes in red font. Do not use red font to display any other text.
     '"""
 )
 
-def reset_project():
+def reset_engine():
     matched_IaC = orig_IaC
     st.session_state['coding'] = 0
 
@@ -101,12 +101,12 @@ if st.session_state['coding'] == 0:
     print (orig_IaC)
     print ("Similarity Score =", IaC[0][1])
 
-st.button("Reset Project", on_click = reset_project)
+st.button("Reset Engine", on_click = reset_engine)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base edge configuration listed below. You can conversationally specify changes step by step. 
 Each specified change will apply on the YAML code generated in the previous step (see below). 
-To start afresh from the base configuration, click the 'Reset Project' button.""", key="input")
+To start afresh from the base configuration, click the 'Reset Engine' button.""", key="input")
 
 if edge_spec:
     st.write ("Please wait. This might take a minute.. :sunglasses:")
