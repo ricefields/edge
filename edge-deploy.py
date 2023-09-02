@@ -61,6 +61,7 @@ Prompt_template = PromptTemplate(
 
 def reset_project():
     matched_IaC = orig_IaC
+    st.session_state['coding'] = 0
 
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
@@ -72,37 +73,43 @@ def reset_project():
 #    Please mark the changes made in the output YAML snippet in red font. 
 #    Retain unchanged values in the output.
 
-llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 
-#response = llm("Tell me something unique about the Indian state of Kerala")
-#print(response)
+if 'coding' not in st.session_state:
+    st.session_state['coding'] = 0
 
-st.title("Edge Deployment Engine")
-st.subheader("Auto-generate Edge Infrastructure-as-Code")
+if st.session_state['coding'] == 0:
+    llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 
-loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
-documents = loader.load()
+    #response = llm("Tell me something unique about the Indian state of Kerala")
+    #print(response)
 
-embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+    st.title("Edge Deployment Engine")
+    st.subheader("Auto-generate Edge Infrastructure-as-Code")
 
-db = FAISS.from_documents(documents, embeddings)
+    loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
+    documents = loader.load()
 
-IaC = db.similarity_search_with_score("ocplabnk")
-matched_IaC = IaC[0][0].page_content
-orig_IaC = matched_IaC
-print (matched_IaC)
-print ("Similarity Score =", IaC[0][1])
+    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+
+    db = FAISS.from_documents(documents, embeddings)
+
+    IaC = db.similarity_search_with_score("ocplabnk")
+    matched_IaC = IaC[0][0].page_content
+    orig_IaC = matched_IaC
+    print (matched_IaC)
+    print ("Similarity Score =", IaC[0][1])
 
 st.button("Reset Project", on_click = reset_project)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node. 
-You can specify changes step by step. 
-Each specified change will apply on the YAML code generated in the previous step. 
+You can conversationally specify changes step by step. 
+Each specified change will apply on the YAML code generated in the previous step (see below). 
 To start a new project, click the 'Reset Project' button.""", key="input")
 
 if edge_spec:
     st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
+    st.session_state["coding"] = 1
 
     chain = LLMChain(llm=llm, prompt=Prompt_template)
 
