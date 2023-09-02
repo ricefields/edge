@@ -94,9 +94,9 @@ if st.session_state['coding'] == 0:
     db = FAISS.from_documents(documents, embeddings)
 
     IaC = db.similarity_search_with_score("ocplabnk")
-    matched_IaC = IaC[0][0].page_content
-    orig_IaC = matched_IaC
-    print (matched_IaC)
+    st.session_state['matched_IaC'] = IaC[0][0].page_content
+    orig_IaC = st.session_state['matched_IaC']
+    print (orig_IaC)
     print ("Similarity Score =", IaC[0][1])
 
 st.button("Reset Project", on_click = reset_project)
@@ -114,13 +114,13 @@ if edge_spec:
     chain = LLMChain(llm=llm, prompt=Prompt_template)
 
     with get_openai_callback() as cb:
-        generated_yaml = chain.run(source_IaC=matched_IaC, edge_config_changes=edge_spec)
+        generated_yaml = chain.run(source_IaC=st.session_state['matched_IaC'], edge_config_changes=edge_spec)
         print (cb)
 
     print (generated_yaml)
     st.code(generated_yaml, language="yaml", line_numbers=False)
 
-    matched_IaC = generated_yaml
+    st.session_state['matched_IaC'] = generated_yaml
     #edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
     #st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
