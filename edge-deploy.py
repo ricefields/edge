@@ -124,7 +124,8 @@ if edge_spec:
     #edge_spec = st.text_input ("Please describe the site-specific changes for your edge node.", key=i)
     #st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
-
+else:
+    st.code(orig_IaC, language="yaml", line_numbers=False)
 
 print ("hello world")
 
