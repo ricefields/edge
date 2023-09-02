@@ -81,8 +81,7 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 #print(response)
 
 st.title("Edge Deployment Engine")
-st.subheader("Auto-generate Infrastructure-as-Code for the Containerized Edge")
-st.caption("Auto-generate Infrastructure-as-Code for the Containerized Edge")
+st.subheader("Auto-generate Infra-as-Code for the Containerized Edge")
 
 if 'coding' not in st.session_state:
     st.session_state['coding'] = 0
