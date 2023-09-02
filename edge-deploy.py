@@ -123,10 +123,10 @@ on top of the base edge configuration listed below. You can specify changes incr
 Each specified change will apply on the YAML code generated in the previous step and generate a new YAML. 
 To start afresh from the base configuration, click on :violet[*Start New Edge Conversation*].
 :violet[**Usage Examples**]: :orange[Change the password of the second master node to 'violin'.]
-:blue[Reduce the number of worker nodes to 2.]
-:green[Change MAC address of the first worker node to 01:02:03:04:05:06 and 
+:red[Reduce the number of worker nodes to 2.]
+:blue[Change MAC address of the first worker node to 01:02:03:04:05:06 and 
 IP address of its bond0.3803 interface to 172.1.2.3.]
-:red[Increase master nodes to 4 and add section corresponding to the 4th master node]""", 
+:green[Increase master nodes to 4 and add section corresponding to the 4th master node.]""", 
 key="input")
 
 if edge_spec:
