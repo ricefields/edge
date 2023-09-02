@@ -65,7 +65,16 @@ Prompt_template = PromptTemplate(
 )
 
 def reset_engine():
-    st.session_state['matched_IaC'] = orig_IaC
+    loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
+    documents = loader.load()
+
+    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+
+    db = FAISS.from_documents(documents, embeddings)
+
+    IaC = db.similarity_search_with_score("ocplabnk")
+    st.session_state['matched_IaC'] = IaC[0][0].page_content
+   
     st.session_state['coding'] = 0
     st.write ("hello world")
 
