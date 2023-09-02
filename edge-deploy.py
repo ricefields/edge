@@ -59,7 +59,8 @@ Prompt_template = PromptTemplate(
     If the number of worker nodes reduce, 
     remove the YAML sections associated with the unused worker nodes, keeping the master node sections unchanged.
     If the number of master nodes reduce, 
-    remove the YAML sections associated with the unused master nodes, keeping the workerr node sections unchanged.
+    remove the YAML sections associated with the unused master nodes, keeping the worker node sections unchanged.
+
     
     '"""
 )
@@ -77,6 +78,8 @@ def reset_engine():
    
     st.session_state['coding'] = 0
     st.write ("hello world")
+    st.code(st.session_state['matched_iaC'], language="yaml", line_numbers=False)
+
 
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
