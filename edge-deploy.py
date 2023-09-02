@@ -56,10 +56,6 @@ Prompt_template = PromptTemplate(
     {edge_config_changes}.
 
     Generate the output YAML only; do not add any additional text before or after the generated YAML.
-    If the number of worker nodes reduce, 
-    remove the YAML sections associated with the unused worker nodes, keeping the master node sections unchanged.
-    If the number of master nodes reduce, 
-    remove the YAML sections associated with the unused master nodes, keeping the worker node sections unchanged.
     Assume that master01 can be called first master node, master02 can be called second master node and so on.
     Assume that stwrk01 can be called first worker node, stwrk02 can be called second worker node and so on.
     '"""
@@ -88,6 +84,8 @@ def usage_examples():
 #    and so on.
 #    Retain unchanged values in the output.
 #    Highlight produced changes in red font. Do not use red font to display any other text.
+#    If the number of worker nodes reduce, ßremove the YAML sections associated with the unused worker nodes, keeping the master node sections unchanged.
+#    If the number of master nodes reduce, remove the YAML sections associated with the unused master nodes, keeping the worker node sections unchanged.
 
 llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 
@@ -124,7 +122,7 @@ Each change will apply on the YAML code generated in the previous step and gener
 To start afresh from the base configuration, click on the :violet[*Start New Edge Conversation*] button.
 :violet[**Usage Examples**]: :orange[Change the password of the second master node to 'violin'.]
 :grey[Reduce the number of worker nodes to 2.]
-:blue[Change MAC address of the second worker node to 01:02:03:04:05:06 and 
+:blue[Change the MAC address of the second worker node to 01:02:03:04:05:06 and the
 IP address of its bond0.3803 interface to 172.1.2.3.]
 :green[Increase master nodes to 4 and add the section corresponding to the 4th master node.]""", 
 key="input")
