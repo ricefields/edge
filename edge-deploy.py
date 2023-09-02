@@ -73,19 +73,19 @@ def reset_project():
 #    Please mark the changes made in the output YAML snippet in red font. 
 #    Retain unchanged values in the output.
 
+  llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
+
+    #response = llm("Tell me something unique about the Indian state of Kerala")
+    #print(response)
+
+st.title("Edge Deployment Engine")
+st.subheader("Auto-generate Edge Infrastructure-as-Code")
 
 if 'coding' not in st.session_state:
     st.session_state['coding'] = 0
 
 if st.session_state['coding'] == 0:
-    llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
-
-    #response = llm("Tell me something unique about the Indian state of Kerala")
-    #print(response)
-
-    st.title("Edge Deployment Engine")
-    st.subheader("Auto-generate Edge Infrastructure-as-Code")
-
+  
     loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
     documents = loader.load()
 
