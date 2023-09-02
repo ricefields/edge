@@ -57,13 +57,14 @@ Prompt_template = PromptTemplate(
     {edge_config_changes}.
 
     Generate the output YAML only; do not add any additional text before or after the generated YAML.
-    Highlight produced changes in red font. Do not use red font to display any other text.
+    
     '"""
 )
 
 def reset_engine():
     matched_IaC = orig_IaC
     st.session_state['coding'] = 0
+    st.write ("hello world")
 
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
@@ -72,8 +73,8 @@ def reset_engine():
 #    and so on.
 #    Assume that stwrk01 can be called first worker node, stwrk02 can be called second worker node
 #    and so on.
-#    Please mark the changes made in the output YAML snippet in red font. 
 #    Retain unchanged values in the output.
+#    Highlight produced changes in red font. Do not use red font to display any other text.
 
 llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 
@@ -105,8 +106,8 @@ st.button("Reset Engine", on_click = reset_engine)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base edge configuration listed below. You can conversationally specify changes step by step. 
-Each specified change will apply on the YAML code generated in the previous step, with changes highlighted 
-in :red[red]. To start afresh from the base configuration, click the 'Reset Engine' button.""", key="input")
+Each specified change will apply on the YAML code generated in the previous step and generate a new YAML. 
+To start afresh from the base configuration, click the 'Reset Engine' button.""", key="input")
 
 if edge_spec:
     st.write ("Please wait. This might take a minute.. :sunglasses:")
