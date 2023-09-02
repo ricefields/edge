@@ -124,7 +124,7 @@ Each specified change will apply on the YAML code generated in the previous step
 To start afresh from the base configuration, click on the :violet[*Reset Engine*] button.
 :violet[**Usage Examples**]: :orange[Change the password of the second master node to 'violin'.]
 :blue[Reduce the number of worker nodes to 2.]
-:green[Change the MAC address of the first worker node to 01:02:03:04:05:06 and the 
+:green[Change MAC address of the first worker node to 01:02:03:04:05:06 and 
 IP address of its bond0.3803 interface to 172.1.2.3.]""", 
 key="input")
 
