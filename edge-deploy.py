@@ -61,7 +61,6 @@ Prompt_template = PromptTemplate(
 )
 
 def reset_engine():
-
     st.session_state['coding'] = 0
     st.session_state['input'] = ""
 
@@ -113,7 +112,7 @@ if 'downloading' not in st.session_state:
 if 'base' not in st.session_state:
     st.session_state['base'] = "ocplabnk"
 
-if st.session_state['coding'] == 0 and st.session_state['downloading'] == 0:
+if (st.session_state['coding'] == 0) and (st.session_state['downloading'] == 0):
   
     loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
     documents = loader.load()
@@ -144,7 +143,7 @@ IP address of its bond0.3803 interface to 172.1.2.3.]
 :green[Increase number of master nodes to 5.]""", 
 key="input")
 
-if edge_spec:
+if edge_spec and st.session_state['downloading'] == 0:
     with col1:
         st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
