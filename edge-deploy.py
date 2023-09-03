@@ -96,7 +96,7 @@ with col3:
 with col1:
     option = st.selectbox(
         ':violet[Choose Base Edge Configuration]',
-        ('EPC-on-Openshift', 'MME on OpenShift'))
+        ('EPC-on-Openshift', 'MME-on-OpenShift'))
 
     if option == "EPC-on-OpenShift":
         st.session_state['base'] = "ocplabnk"
