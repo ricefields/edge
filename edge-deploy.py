@@ -128,7 +128,7 @@ if st.session_state['coding'] == 0 and st.session_state['downloading'] == 0:
     print (st.session_state['orig_IaC'])
     print ("Similarity Score =", IaC[0][1])
 
-with col1:
+with col1 and col2:
     edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base configuration listed below. You may specify changes incrementally. 
 Each change will apply on the YAML code generated in the previous step and generate the resulting YAML. 
