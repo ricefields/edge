@@ -160,11 +160,11 @@ if edge_spec:
     st.session_state['matched_IaC'] = generated_yaml
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
-col1, col2 = st.columns(1, 10)
+col1, col2 = st.columns(2, 1)
 
 if st.session_state['matched_IaC']:
     with col1:
-        st.write (":violet[Generated YAML]")
+        st.write (":violet[Use this Generated YAML with a cluster manager such as Red Hat ACM or Rancher Server]")
 
     with col2:
         st.download_button(':violet[Download]', st.session_state['matched_IaC'], 
