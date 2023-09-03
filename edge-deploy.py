@@ -1,6 +1,5 @@
 import os
 
-#from dotenv import load_dotenv
 from langchain.llms import OpenAI
 from langchain.chains import RetrievalQA
 from langchain.document_loaders import TextLoader
@@ -95,6 +94,21 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 st.title("Edge Deployment Engine")
 st.subheader("_Auto-generate Infra-as-Code for the Containerized Edge_")
 
+col1, col2 = st.columns(2)
+with col1:
+    st.button(":violet[Start New Edge Conversation]", on_click = reset_engine)
+
+with col2:
+    option = st.selectbox(
+        'Choose Base',
+        ('EPC-on-Openshift', 'MME on OpenShift'))
+
+    if option == "EPC-on-OpenShift":
+        st.session_state['base'] = "ocplabnk"
+    elif option == "MME-on-OpenShift":
+        st.session_state['base'] = "ocplabnk" # To be changed
+
+
 if 'coding' not in st.session_state:
     st.session_state['coding'] = 0
 
@@ -107,14 +121,12 @@ if st.session_state['coding'] == 0:
 
     db = FAISS.from_documents(documents, embeddings)
 
-    IaC = db.similarity_search_with_score("ocplabnk")
+    IaC = db.similarity_search_with_score(st.session_state['base'])
     st.session_state['matched_IaC'] = IaC[0][0].page_content
     st.session_state['orig_IaC'] = st.session_state['matched_IaC']
     print (st.session_state['orig_IaC'])
     print ("Similarity Score =", IaC[0][1])
 
-st.button(":violet[Start New Edge Conversation]", on_click = reset_engine)
-#st.button("Usage Examples", on_click = usage_examples)
 
 edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base configuration listed below. You may specify changes incrementally. 
