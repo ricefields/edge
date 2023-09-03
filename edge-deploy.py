@@ -160,7 +160,7 @@ if edge_spec:
     st.session_state['matched_IaC'] = generated_yaml
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
-col1, col2 = st.columns(2, 1)
+col1, col2 = st.columns([1, 2])
 
 if st.session_state['matched_IaC']:
     with col1:
