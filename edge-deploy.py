@@ -92,7 +92,7 @@ with col1:
 
 with col2:
     option = st.selectbox(
-        ':violet[Choose Base Configration]',
+        ':violet[Choose Base Edge Configuration]',
         ('EPC-on-Openshift', 'MME on OpenShift'))
 
     if option == "EPC-on-OpenShift":
