@@ -63,7 +63,7 @@ Prompt_template = PromptTemplate(
 def reset_engine():
 
     st.session_state['coding'] = 0
-    st.session_state["input"] = ""
+    st.session_state['input'] = ""
 
 
 # When interpreting the specified changes, 
@@ -154,7 +154,7 @@ if edge_spec:
 
 if st.session_state['matched_IaC']:
     if st.download_button(':violet[Download]', st.session_state['matched_IaC'], file_name="edge-deploy.yaml"):
-        st.session_state["input"] = ""
+        st.session_state['input'] = ""
     st.write ("Generated YAML:")
     st.code(st.session_state['matched_IaC'], language="yaml", line_numbers=False)   
 
