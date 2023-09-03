@@ -86,7 +86,7 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 #response = llm("Tell me something unique about the Indian state of Kerala")
 #print(response)
 
-st.title("Edge Deployment Engine")
+st.title("Edge Deployment and Sustenance Engine")
 st.subheader("_Auto-generate Infra-as-Code for the Containerized Edge_")
 
 col1, col2 = st.columns(2)
