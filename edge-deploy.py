@@ -89,6 +89,7 @@ st.title("Edge Deployment and Ops Engine")
 st.subheader("_Auto-generate Infra-as-Code for the Containerized Edge_")
 
 col1, col2, col3 = st.columns([2,2,3])
+
 with col3:
     st.button(":violet[Start New Edge Conversation]", on_click = reset_engine)
 
@@ -128,6 +129,7 @@ if (st.session_state['coding'] == 0) and (st.session_state['downloading'] == 0):
     print ("Similarity Score =", IaC[0][1])
 
 col1, col2 = st.columns([20, 1])
+
 with col1:
     edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node relative to 
 the base configuration listed below. You may specify changes incrementally. 
