@@ -88,7 +88,7 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 st.title("Edge Deployment and Ops Engine")
 st.subheader("_Auto-generate Infra-as-Code for the Containerized Edge_")
 
-col1, col2 = st.columns([2, 1])
+col1, col2 = st.columns([1, 2])
 with col2:
     st.button(":violet[Start New Edge Conversation]", on_click = reset_engine)
 
@@ -159,7 +159,7 @@ if edge_spec and st.session_state['downloading'] == 0:
     st.session_state['matched_IaC'] = generated_yaml
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
-col1, col2 = st.columns([1, 4])
+col1, col2 = st.columns([1, 2])
 
 if st.session_state['matched_IaC']:
     with col1:
