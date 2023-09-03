@@ -129,10 +129,10 @@ if (st.session_state['coding'] == 0) and (st.session_state['downloading'] == 0):
 
 col1, col2 = st.columns([20, 1])
 with col1:
-    edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
-on top of the base configuration listed below. You may specify changes incrementally. 
+    edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node relative to 
+the base configuration listed below. You may specify changes incrementally. 
 Each change will apply on the YAML code generated in the previous step and generate the resulting YAML. 
-To start afresh from the base configuration, click on the :violet[*Start New Edge Conversation*] button.
+To start afresh from the base, click on the :violet[*Start New Edge Conversation*] button.
 :violet[**Usage Examples**]: :orange[Change the password of the second master node to _violin_.]
 :green[Reduce the number of master nodes to 2 and the number of worker nodes to 1.]
 :blue[Change the MAC address of the second worker node to 01:02:03:04:05:06 and the
