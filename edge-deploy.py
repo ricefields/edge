@@ -128,7 +128,7 @@ if st.session_state['coding'] == 0 and st.session_state['downloading'] == 0:
     print (st.session_state['orig_IaC'])
     print ("Similarity Score =", IaC[0][1])
 
-col1 = st.columns(1)
+col1, col2 = st.columns([10, 1])
 with col1:
     edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base configuration listed below. You may specify changes incrementally. 
