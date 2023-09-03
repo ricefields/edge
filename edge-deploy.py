@@ -88,7 +88,7 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 st.title("Edge Deployment and Ops Engine")
 st.subheader("_Auto-generate Infra-as-Code for the Containerized Edge_")
 
-col1, col2 = st.columns([1, 2])
+col1, col2 = st.columns([2, 1])
 with col1:
     st.button(":violet[Start New Edge Conversation]", on_click = reset_engine)
 
@@ -134,7 +134,7 @@ on top of the base configuration listed below. You may specify changes increment
 Each change will apply on the YAML code generated in the previous step and generate the resulting YAML. 
 To start afresh from the base configuration, click on the :violet[*Start New Edge Conversation*] button.
 :violet[**Usage Examples**]: :orange[Change the password of the second master node to _violin_.]
-:green[Reduce the number of worker nodes to 2.]
+:green[Reduce the number of master nodes to 2 and the number of worker nodes to 1.]
 :blue[Change the MAC address of the second worker node to 01:02:03:04:05:06 and the
 IP address of its bond0.3803 interface to 172.1.2.3.]
 :green[Increase master nodes to 4 and add the section corresponding to the 4th master node.]
@@ -163,7 +163,7 @@ col1, col2 = st.columns([1, 5])
 
 if st.session_state['matched_IaC']:
     with col1:
-        st.write (":violet[Generated YAML]")
+        st.write (":violet[Please find generated YAML below]")
 
     with col2:
         st.download_button(':violet[Download]', st.session_state['matched_IaC'], 
