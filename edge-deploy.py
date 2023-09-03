@@ -131,7 +131,8 @@ To start afresh from the base configuration, click on the :violet[*Start New Edg
 :grey[Reduce the number of worker nodes to 2.]
 :blue[Change the MAC address of the second worker node to 01:02:03:04:05:06 and the
 IP address of its bond0.3803 interface to 172.1.2.3.]
-:green[Increase master nodes to 4 and add the section corresponding to the 4th master node.]""", 
+:green[Increase master nodes to 4 and add the section corresponding to the 4th master node.]
+:orange[Fill missing worker node sections.]""", 
 key="input")
 
 if edge_spec:
@@ -151,6 +152,7 @@ if edge_spec:
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
 if st.session_state['matched_IaC']:
-    st.download_button(':violet[Download]', st.session_state['matched_IaC'], file_name='edge-deploy.yaml')
+    if st.download_button(':violet[Download]', st.session_state['matched_IaC']):
+        st.session_state["input"] = ""
     st.code(st.session_state['matched_IaC'], language="yaml", line_numbers=False)   
 
