@@ -61,18 +61,10 @@ Prompt_template = PromptTemplate(
 )
 
 def reset_engine():
-    
+
     st.session_state['coding'] = 0
     st.session_state["input"] = ""
 
-def usage_examples():
-    
-    st.session_state['coding'] = 0
-    st.session_state["input"] = ""
-    st.write ("""Change the password of the second master node to kyndryl\n.
-    Reduce the number of worker nodes to 2\n.
-    Change the MAC address of the first worker node to 01:02:03:04:05:06 and its IP address to 172.1.2.3.\n
-    """)
 
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
@@ -111,6 +103,9 @@ with col2:
 
 if 'coding' not in st.session_state:
     st.session_state['coding'] = 0
+
+if 'base' not in st.session_state:
+    st.session_state['base'] = "ocplabnk"
 
 if st.session_state['coding'] == 0:
   
