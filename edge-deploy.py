@@ -158,10 +158,14 @@ if edge_spec:
     st.session_state['matched_IaC'] = generated_yaml
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
+
 if st.session_state['matched_IaC']:
-    st.download_button(':violet[Download]', st.session_state['matched_IaC'], 
+    with col1:
+        st.write (":violet[Generated YAML:]")
+
+    with col2:
+        st.download_button(':violet[Download]', st.session_state['matched_IaC'], 
                        file_name="edge-deploy.yaml", on_click=set_download_state)
 
-    st.write (":violet[Generated YAML:]")
     st.code(st.session_state['matched_IaC'], language="yaml", line_numbers=False)   
 
