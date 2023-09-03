@@ -88,8 +88,8 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 st.title("Edge Deployment and Ops Engine")
 st.subheader("_Auto-generate Infra-as-Code for the Containerized Edge_")
 
-col1, col2 = st.columns([1, 2])
-with col2:
+col1, col2, col3 = st.columns(3)
+with col3:
     st.button(":violet[Start New Edge Conversation]", on_click = reset_engine)
 
 with col1:
