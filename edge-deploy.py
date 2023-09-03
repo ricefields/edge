@@ -110,9 +110,6 @@ if 'coding' not in st.session_state:
 if 'downloading' not in st.session_state:
     st.session_state['downloading'] = 0
 
-if st.session_state['downloading'] == 1:
-    st.stop()
-    
 if 'base' not in st.session_state:
     st.session_state['base'] = "ocplabnk"
 
@@ -131,8 +128,8 @@ if st.session_state['coding'] == 0 and st.session_state['downloading'] == 0:
     print (st.session_state['orig_IaC'])
     print ("Similarity Score =", IaC[0][1])
 
-
-edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
+with col1:
+    edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base configuration listed below. You may specify changes incrementally. 
 Each change will apply on the YAML code generated in the previous step and generate the resulting YAML. 
 To start afresh from the base configuration, click on the :violet[*Start New Edge Conversation*] button.
@@ -147,8 +144,8 @@ IP address of its bond0.3803 interface to 172.1.2.3.]
 key="input")
 
 if edge_spec:
-    
-    st.write ("Please wait. This might take a minute.. :sunglasses:")
+    with col1:
+        st.write ("Please wait. This might take a minute.. :sunglasses:")
     #edge_spec = "Decrease the number of worker nodes to 2. Delete sections associated with the removed worker nodes. Also change the IPv4 address of second worker node to 5.6.7.8 and its boot MAC address to 01:02:03:04:05:06."
     st.session_state["coding"] = 1
 
