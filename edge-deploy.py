@@ -138,7 +138,7 @@ To start afresh from the base configuration, click on the :violet[*Start New Edg
 IP address of its bond0.3803 interface to 172.1.2.3.]
 :green[Increase master nodes to 4 and add the section corresponding to the 4th master node.]
 :orange[Fill missing worker node sections.]
-:blue[Remove additional worker node sections"]
+:blue[Remove additional worker node sections.]
 :green[Increase number of master nodes to 5.]""", 
 key="input")
 
