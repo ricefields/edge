@@ -68,9 +68,7 @@ def reset_engine():
 def set_download_state():
     st.session_state['downloading'] = 1
 
-if st.session_state['downloading'] == 1:
-    st.stop()
-    
+
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
 #    Assume that MAC address is another name for bootMACAddress. 
@@ -112,6 +110,9 @@ if 'coding' not in st.session_state:
 if 'downloading' not in st.session_state:
     st.session_state['downloading'] = 0
 
+if st.session_state['downloading'] == 1:
+    st.stop()
+    
 if 'base' not in st.session_state:
     st.session_state['base'] = "ocplabnk"
 
