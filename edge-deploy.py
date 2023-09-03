@@ -92,7 +92,7 @@ with col1:
 
 with col2:
     option = st.selectbox(
-        'Choose Base',
+        ':violet[Choose Base Configration]',
         ('EPC-on-Openshift', 'MME on OpenShift'))
 
     if option == "EPC-on-OpenShift":
@@ -154,5 +154,7 @@ if edge_spec:
 else:
     st.code(st.session_state['matched_IaC'], language="yaml", line_numbers=False)
 
+if st.session_state['matched_IaC']:
+    st.download_button('Download', st.session_state['matched_IaC'])
 
 
