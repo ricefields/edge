@@ -131,7 +131,7 @@ col1, col2 = st.columns([20, 1])
 with col1:
     edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node relative to 
 the base configuration listed below. You may specify changes incrementally. 
-Each change will apply on the YAML code generated in the previous step and generate the resulting YAML. 
+Each change will apply on the YAML code generated in the previous step and will generate the resulting YAML. 
 To start afresh from the base, click on the :violet[*Start New Edge Conversation*] button.
 :violet[**Usage Examples**]: :orange[Change the password of the second master node to _violin_.]
 :green[Reduce the number of master nodes to 2 and the number of worker nodes to 1.]
