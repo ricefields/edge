@@ -65,6 +65,8 @@ def reset_engine():
     st.session_state['coding'] = 0
     st.session_state['input'] = ""
 
+def set_download_state():
+    st.session_state['downloading'] = 1
 
 # When interpreting the specified changes, 
 #    Assume that a worker node is another name for a replica. 
@@ -104,10 +106,13 @@ with col2:
 if 'coding' not in st.session_state:
     st.session_state['coding'] = 0
 
+if 'downloading' not in st.session_state:
+    st.session_state['downloading'] = 0
+
 if 'base' not in st.session_state:
     st.session_state['base'] = "ocplabnk"
 
-if st.session_state['coding'] == 0:
+if st.session_state['coding'] == 0 and st.session_state['downloading'] == 0:
   
     loader = TextLoader(openshift_base_yaml_path, encoding='utf8')
     documents = loader.load()
@@ -133,7 +138,8 @@ To start afresh from the base configuration, click on the :violet[*Start New Edg
 IP address of its bond0.3803 interface to 172.1.2.3.]
 :green[Increase master nodes to 4 and add the section corresponding to the 4th master node.]
 :orange[Fill missing worker node sections.]
-:blue[Increase number of master nodes to 5.]""", 
+:blue[Remove additional worker node sections"]
+:green[Increase number of master nodes to 5.]""", 
 key="input")
 
 if edge_spec:
@@ -153,8 +159,8 @@ if edge_spec:
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
 if st.session_state['matched_IaC']:
-    if st.download_button(':violet[Download]', st.session_state['matched_IaC'], file_name="edge-deploy.yaml"):
-        st.stop()
+    st.download_button(':violet[Download]', st.session_state['matched_IaC'], 
+                       file_name="edge-deploy.yaml", on_click=set_download_state)
 
     st.write (":violet[Generated YAML:]")
     st.code(st.session_state['matched_IaC'], language="yaml", line_numbers=False)   
