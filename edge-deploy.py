@@ -86,7 +86,7 @@ llm = ChatOpenAI(model_name='gpt-3.5-turbo-16k', temperature=0)
 #response = llm("Tell me something unique about the Indian state of Kerala")
 #print(response)
 
-st.title("Edge Deployment and Sustenance Engine")
+st.title("Edge Deployment & Sustenance Engine")
 st.subheader("_Auto-generate Infra-as-Code for the Containerized Edge_")
 
 col1, col2 = st.columns(2)
@@ -128,7 +128,7 @@ if st.session_state['coding'] == 0 and st.session_state['downloading'] == 0:
     print (st.session_state['orig_IaC'])
     print ("Similarity Score =", IaC[0][1])
 
-col1, col2 = st.columns([15, 1])
+col1, col2 = st.columns([20, 1])
 with col1:
     edge_spec = st.text_input ("""Please describe the site-specific changes for your edge node to be applied 
 on top of the base configuration listed below. You may specify changes incrementally. 
@@ -160,11 +160,11 @@ if edge_spec:
     st.session_state['matched_IaC'] = generated_yaml
     #edge_spec = "Change the number of master node replicas to 4. Add sections corresponding to any additional master nodes. Keep existing sections unchanged."
 
-col1, col2 = st.columns([1, 2])
+col1, col2 = st.columns([5, 1])
 
 if st.session_state['matched_IaC']:
     with col1:
-        st.write (":violet[Use this Generated YAML with a cluster manager such as Red Hat ACM or Rancher Server]")
+        st.write (":violet[Generated YAML]")
 
     with col2:
         st.download_button(':violet[Download]', st.session_state['matched_IaC'], 
