@@ -72,7 +72,7 @@ def set_download_state():
 #    Assume that a worker node is another name for a replica. 
 #    Assume that MAC address is another name for bootMACAddress. 
 #    Assume that master01 can be called first master node, master02 can be called second master node 
-#    and so on,
+#    and so on.
 #    Assume that stwrk01 can be called first worker node, stwrk02 can be called second worker node
 #    and so on.
 #    Retain unchanged values in the output.
